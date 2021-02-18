@@ -38,8 +38,12 @@ for i in range(8):
 print("x0", (str(x0_list)[1:-1]).replace(",", ""), "\ndx", (str(dx_list)[1:-1]).replace(",", ""))
 print("a0 - ", str(a0) + ",", "a1 - ", str(a1) + ",", "a2 - ", str(a2) + ",", "a3 - ", str(a3) + ",", "average Y - ",
       str(average_y) + ",", "average Y < - ", str(max_y) + ".")
+print(str(min(y_list)) + " - мінімальний Y")
 print((str(abc_list2)[1:-1]).replace(",", ""))
 for i in range(8):
     print(i + 1, (str(xn_list[i])[1:-1]).replace(",", ''))
+    
+    
+    
 
 
