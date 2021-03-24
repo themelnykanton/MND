@@ -117,6 +117,16 @@ class Main:
         print(self.b0 + self.b1 * (-1) + self.b2 * (-1), " = ", self.y_avg_mass[0])
         print(self.b0 + self.b1 * (-1) + self.b2 * (1), " = ", self.y_avg_mass[1])
         print(self.b0 + self.b1 * (1) + self.b2 * (-1), " = ", self.y_avg_mass[2])
+        
+        #перевірка на однорідність
+        for i in range(3):
+            if self.ruv_mass[i]<2:
+                self.ruv_mass[i]=2
+        if sum(self.ruv_mass)==6:
+            print("Диссперсія однорідна")
+        else:
+            print("Дисперссія неоднорідна")
+        # -------------------------
 
     def other(self):
         delta_x1 = (self.x1_max - self.x1_min) / 2
