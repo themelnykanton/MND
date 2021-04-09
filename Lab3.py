@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from time import time
 
 
 def fill_random(x1, x2):
@@ -84,12 +85,12 @@ class Lab3:
                 t += self.main_mass[i][j] * self.main_mass[i][j]
             self.a_1.append(t / 4)
 
-        a12  = (self.x1_plan[0] * self.x2_plan[0] + self.x1_plan[1] * self.x2_plan[1] + self.x1_plan[2] *
-                     self.x2_plan[2] + self.x1_plan[3] * self.x2_plan[
-                         3]) / 4
-        a13  = (self.x1_plan[0] * self.x3_plan[0] + self.x1_plan[1] * self.x3_plan[1] + self.x1_plan[2] *
-                     self.x3_plan[2] + self.x1_plan[3] * self.x3_plan[
-                         3]) / 4
+        a12 = (self.x1_plan[0] * self.x2_plan[0] + self.x1_plan[1] * self.x2_plan[1] + self.x1_plan[2] *
+               self.x2_plan[2] + self.x1_plan[3] * self.x2_plan[
+                   3]) / 4
+        a13 = (self.x1_plan[0] * self.x3_plan[0] + self.x1_plan[1] * self.x3_plan[1] + self.x1_plan[2] *
+               self.x3_plan[2] + self.x1_plan[3] * self.x3_plan[
+                   3]) / 4
         a23 = a32 = (self.x2_plan[0] * self.x3_plan[0] + self.x2_plan[1] * self.x3_plan[1] + self.x2_plan[2] *
                      self.x3_plan[2] + self.x2_plan[3] * self.x3_plan[
                          3]) / 4
@@ -126,6 +127,7 @@ class Lab3:
                                    3]) / 4
 
     def second_step(self):
+        global T
         b = []
         b.append(self.b0)
         b.append(self.b1)
@@ -144,6 +146,7 @@ class Lab3:
             self.s_mass.append(t / 3)
 
         self.Gp = max(self.s_mass) / sum(self.s_mass)
+        t1 = time()
         self.S_B = sum(self.s_mass) / 4
         self.S_Bs = self.S_B / 12
         self.SBs = np.sqrt(self.S_Bs)
@@ -162,6 +165,7 @@ class Lab3:
         for i in range(len(self.T)):
             if self.T[i] > 2.306:
                 self.koef_T.append(i)
+        t2 = time()
 
         for i in range(4):
             t = 0
@@ -175,6 +179,7 @@ class Lab3:
         self.S_ad = self.Sad * 1.5
         self.Fp = self.S_ad / self.S_Bs
         self.Ft = 4.5
+        T=t2-t1
 
     def prt(self):
         print("Матриця планування", "-", self.plan_matrix)
@@ -223,6 +228,7 @@ class Lab3:
         print("Sad - ", self.Sad)
         if self.Fp > self.Ft:
             print("Fp>Fт.Отже, рівняння регресії неадекватно оригіналу при рівні значимості 0.05")
+        print(T," - витрачений час")
 
 
 if __name__ == "__main__":
