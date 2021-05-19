@@ -4,7 +4,7 @@ from scipy.stats import f, t, ttest_ind, norm
 from _pydecimal import Decimal, ROUND_UP, ROUND_FLOOR
 from pyDOE2 import ccdesign
 from sklearn.linear_model import LinearRegression
-
+from time import process_time as clock
 
 class full_factor_experiment:
     def __init__(self, N, m, q, y_only_int=True):
@@ -132,6 +132,7 @@ class full_factor_experiment:
             del predicted
 
     def model(self):
+        global T1
         self.gen_matrix()
         while True:
             if not self.cohren_crit():
@@ -154,6 +155,9 @@ class full_factor_experiment:
         print("Матриця планування експерименту з нормованими значеннями")
         print(tabulate(list(to_print), headers=headers, tablefmt="fancy_grid"))
         print("Дисперсія однорідна за критерієм Кохрена")
+        if timer==9:
+            t1_1=clock()
+            T1=t1_1-t1
 
         self.find_b()
 
@@ -169,7 +173,11 @@ class full_factor_experiment:
             print("Рівняння регресії адекватно оригіналу")
         else:
             print("Рівняння регресії неадекватно оригіналу")
-
-
-m = full_factor_experiment(15, 3, 0.05)
-m.model()
+t1=clock()
+timer=0
+T1=0
+for i in range(10):
+    m = full_factor_experiment(15, 3, 0.05)
+    m.model()
+    timer+=1
+print("Cередній час перевірки однорідності дисперсії - ",T1/10)
