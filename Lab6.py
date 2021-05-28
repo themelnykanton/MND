@@ -1,7 +1,7 @@
 from copy import deepcopy
 from math import sqrt
 from random import random
-
+from time import process_time as clock
 import numpy as np
 from prettytable import PrettyTable
 x1_min = -10
@@ -214,7 +214,7 @@ def main(m, n):
     check_i = [round(sum(b_i[j] * i[j] for j in range(len(b_i))), 3) for i in x]
     for i in range(len(check_i)):
         print(f'ŷ{i + 1} = {check_i[i]}, y_av{i + 1} = {y_av[i]}')
-
+    time1=clock()
     print("\n[ Kohren's test ]")
     f_1 = m - 1
     f_2 = n
@@ -230,6 +230,9 @@ def main(m, n):
     else:
         print(f"The variance is not homogeneous Gp = {g_p:.5} > Gt = {g_t}\nStart again with m = m + 1 = {m + 1}")
         return main(m=m + 1, n=n)
+    time2=clock()
+    T1=time2-time1
+    print(T1, "Час перевірки однорідності дисперсії")
 
     print("\n[ Student's test ]")
     s2_b = sum(s_i) / n
